@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search results</title>
+  </head>
+  <style>
+    
+#navbar{
+  display: flex;
+  justify-content: space-evenly;
+
+}
+#navbar> h1{
+  margin: 10px 0px 10px 10px;
+}
+#navbar> input{
+  width: 60%;
+  height: 35px;
+}
+    #local_block{
+      width: 100%;
+      height: auto;
+      display: flex;
+      border: 1px solid red;
+    }
+    #sidebar{
+      display: flex;
+      flex-direction: column;
+      border: 1px solid black;
+      width: 30%;
+    }    
+    #results{
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      border:  1px dashed red;
+    }
+    .box{
+      border: 1px solid teal;
+      height: 200px;
+      width: 100%;
+      display: flex;
+    }
+    .image{
+      height: 100%;
+      width: 30%;
+    }
+    .boxes{
+      border: 2px solid coral;
+      height: 100%;
+      width: 70%;
+    }
+  </style>
+  <body>
+    <!-- Same navbar with same functionality  -->
+
+    <div id="navbar">
+ 
+
+    </div>
+    <div id="local_block">
+     
+      <div id="results"></div>
+    </div>
+    
+    <!-- Append results inside div with id "results"  -->
+    <!-- News divs will have class "news"  -->
+  </body>
+</html>
+<script src="./scripts/search.js" type="module"></script>
