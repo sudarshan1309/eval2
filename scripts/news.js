@@ -1,7 +1,5 @@
-// Use Import export (MANDATORY)
+// Ude Import export (MANDATORY)
 
+import nav from "/components/navbar.js";
 
-import {navbar,news} from '../components/navbar.js'
-console.log(navbar)
-
-document.querySelector("#navbar").innerHTML= navbar()
+document.getElementById("navbar").innerHTML = nav();

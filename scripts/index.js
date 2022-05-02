@@ -1,73 +1,75 @@
-// Ude Import export (MANDATORYdocument.querySelector("#sidebar>button").children// Onclicking store the news in local storage with key "news" so that you can access that on news.html pagdocument.querySelector("#sidebar>button").childrenimport {navbar,news,append,sidebar} from '../components/navbar.jsdocument.querySelector("#sidebar>button").childrenconsole.log(navbar)
-import {navbar,news,append, sidebar} from '../components/navbar.js'
-console.log(navbar)
-document.querySelector("#navbar").innerHTML= navbar()
+// Ude Import export (MANDATORY)
+// Onclicking store the news in local storage with key "news" so that you can access that on news.html page
 
+import nav from "/components/navbar.js";
 
-//https://masai-mock-api.herokuapp.com/news?q={query}
+document.getElementById("navbar").innerHTML = nav();
 
-let enter = document.querySelector("#search_input").value
-
-
-document.getElementById("search_input").addEventListener("keydown",function(enter){
-   // alert('enter')
-//console.log(enter)
-
-let query = document.querySelector("#search_input").value
-   
-   if(enter.key =="Enter"){   
-          
-    let x =  news(query).then(function(res){
-        console.log(res.articles)
-        localStorage.setItem("data",JSON.stringify(res.articles))
-        window.location.href='search.html'
-    })
-   }  
-
-
+document.getElementById("search_input").addEventListener("keypress", searchNews);
+document.querySelector("#in").addEventListener("click", function(){
+    selectCon("in")
+})
+document.querySelector("#ch").addEventListener("click", function(){
+    selectCon("ch")
+})
+document.querySelector("#us").addEventListener("click", function(){
+    selectCon("us")
+})
+document.querySelector("#uk").addEventListener("click", function(){
+    selectCon("uk")
+})
+document.querySelector("#nz").addEventListener("click", function(){
+    selectCon("nz")
 })
 
 
-let category = document.querySelector("#sidebar").children
-//console.log(category)
-
-
-
-
-
-
-
-function myfunc(){
-   console.log(this.id)
-
-let output = sidebar1(this.id).articles
-console.log(output)
-   
+function selectCon(contry){
+    // console.log(contry)
+    displayData(contry)
 }
 
+function displayData(contry){
+    let api = `https://masai-mock-api.herokuapp.com/news/top-headlines?country=${contry}`
+    fetch(api)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.articles) 
+                show(data.articles)});
 
-for(let e of category){
-   e.addEventListener("click",myfunc)
+   function show(data){
+    let results = document.getElementById("results")
+    results.innerHTML = null;
+       data.map(function(ele){
+            
+            let news = document.createElement("div");
+            news.className = "news";
+
+            let img =  document.createElement("img");
+            img.src = ele.urlToImage
+
+            let div = document.createElement("div")
+            div.className = "title"
+
+                let titl = document.createElement("h4");
+                titl.innerText = ele.title
+
+                let disciptio = document.createElement("p");
+                disciptio.innerText = ele.description
+
+            div.append(titl, disciptio)
+            news.append(img, div)
+            results.append(news)
+       });
+
+   } 
 }
+function searchNews(){
+    if(event.key == "Enter"){
+        event.preventDefault();
+        // console.log(`hello`)
+        let query = document.getElementById("search_input").value;
+        window.location.href = "search.html";
+   
 
-   
-let sidebar1 = async (country)=>{
-console.log(country)
-   
-   let url =`https://masai-mock-api.herokuapp.com/news/top-headlines?country=${country}`
-   
-   try{
-   
-   let data = await fetch(url)
-   let res =  await data.json()
-   console.log(res.articles)
-   append(res.articles,results)
-   
-   
-   }catch(err){
-       console.log(err)
-   }    
-   
-   }
-
-   sidebar1("in")
+    }
+}
